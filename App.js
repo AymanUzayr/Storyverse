@@ -38,10 +38,10 @@ const genreToBooksSubject = {
   Fantasy: "fantasy",
 };
 
-// Navigation stack
+//create a stack navigation object
 const Stack = createStackNavigator();
 
-// Home Screen
+// this navigates to the home screen of the app
 function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
@@ -74,7 +74,7 @@ function HomeScreen({ navigation }) {
   );
 }
 
-// Genre Selection Screen
+//handles the genre selection of user choice for the recommendation system
 function GenreSelectionScreen({ route, navigation }) {
   const { category } = route.params;
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -126,7 +126,7 @@ function GenreSelectionScreen({ route, navigation }) {
   );
 }
 
-// Recommendation Screen
+//Handles the recommendation logic according to user's preference
 function RecommendationScreen({ route }) {
   const { category, selectedGenres } = route.params;
   const [results, setResults] = useState([]);
