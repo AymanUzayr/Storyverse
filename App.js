@@ -11,10 +11,8 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import {TMDB_API_KEY, GOOGLE_BOOKS_API_KEY} from "@env";
 
-// Constants
-const TMDB_API_KEY = "49a2db037dcb32a4ca80323258cd6f7b";
-const GOOGLE_BOOKS_API_KEY = "AIzaSyD5w_BzzPvSprgBlT7DtHTRuDT2KsJnZxw";
 
 const genreMap = {
   Action: 28,
