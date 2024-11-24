@@ -11,8 +11,10 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import {TMDB_API_KEY, GOOGLE_BOOKS_API_KEY} from "@env";
+import Config from 'react-native-config';
 
+const tmdbKey = Config.TMDB_API_KEY;
+const googleBooksKey = Config.GOOGLE_BOOKS_API_KEY;
 
 const genreMap = {
   Action: 28,
