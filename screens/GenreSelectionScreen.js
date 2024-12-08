@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, Switch } from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator, Alert, Switch } from "react-native";
+import  GenreSelectionStyles from "../styles/GenreSelectionStyles";
 
 const BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OWEyZGIwMzdkY2IzMmE0Y2E4MDMyMzI1OGNkNmY3YiIsIm5iZiI6MTczMjY0NDMwMy4xMjA4NzMyLCJzdWIiOiI2NzNjYjI5MjRkNmRiMDBkOTNkNGRhYmIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.S7iq-o-yE2c1iOwEx1LEeX0HUiuT95-EITGH7NQArg0";
 
@@ -58,25 +59,25 @@ const GenreSelectionScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Select Genres for {category}</Text>
+    <View style={GenreSelectionStyles.container}>
+      <Text style={GenreSelectionStyles.header}>Select Genres for {category}</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#fff" />
       ) : (
-        <View style={styles.genreContainer}>
+        <View style={GenreSelectionStyles.genreContainer}>
           {genres.map((genre) => (
             <TouchableOpacity
               key={genre.id}
               style={[
-                styles.genreButton,
-                selectedGenres.includes(genre.id) && styles.genreButtonSelected,
+                GenreSelectionStyles.genreButton,
+                selectedGenres.includes(genre.id) && GenreSelectionStyles.genreButtonSelected,
               ]}
               onPress={() => toggleGenre(genre.id)}
             >
               <Text
                 style={[
-                  styles.genreText,
-                  selectedGenres.includes(genre.id) && styles.genreTextSelected,
+                  GenreSelectionStyles.genreText,
+                  selectedGenres.includes(genre.id) && GenreSelectionStyles.genreTextSelected,
                 ]}
               >
                 {genre.name}
@@ -85,8 +86,8 @@ const GenreSelectionScreen = ({ route, navigation }) => {
           ))}
         </View>
       )}
-      <View style={styles.switchContainer}>
-        <Text style={styles.switchLabel}>Include Adult Content</Text>
+      <View style={GenreSelectionStyles.switchContainer}>
+        <Text style={GenreSelectionStyles.switchLabel}>Include Adult Content</Text>
         <Switch
           value={includeAdult} // This should always be a boolean
           onValueChange={(value) => {
@@ -97,8 +98,8 @@ const GenreSelectionScreen = ({ route, navigation }) => {
           thumbColor={includeAdult ? "#f5dd4b" : "#f4f3f4"}
         />
       </View>
-      <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-        <Text style={styles.searchButtonText}>Get Recommendations</Text>
+      <TouchableOpacity style={GenreSelectionStyles.searchButton} onPress={handleSearch}>
+        <Text style={GenreSelectionStyles.searchButtonText}>Get Recommendations</Text>
       </TouchableOpacity>
     </View>
   );
@@ -106,60 +107,4 @@ const GenreSelectionScreen = ({ route, navigation }) => {
 
 export default GenreSelectionScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#121212",
-    padding: 20,
-  },
-  header: {
-    color: "#fff",
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  genreContainer: {
-    flexWrap: "wrap",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  genreButton: {
-    padding: 10,
-    margin: 5,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: "#fff",
-  },
-  genreButtonSelected: {
-    backgroundColor: "#6200ea",
-  },
-  genreText: {
-    color: "#fff",
-  },
-  genreTextSelected: {
-    fontWeight: "bold",
-  },
-  switchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginVertical: 20,
-  },
-  switchLabel: {
-    color: "#fff",
-    fontSize: 16,
-  },
-  searchButton: {
-    backgroundColor: "#03dac5",
-    padding: 15,
-    borderRadius: 8,
-    alignItems: "center",
-    marginTop: 20,
-  },
-  searchButtonText: {
-    color: "#000",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-});
+
