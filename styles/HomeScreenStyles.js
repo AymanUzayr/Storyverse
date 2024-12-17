@@ -14,7 +14,7 @@ const HomeScreenStyles = StyleSheet.create({
     marginBottom: 20,
   },
   categoryButton: {
-    backgroundColor: "#6200ea",
+    backgroundColor: "#d44f02",
     padding: 15,
     borderRadius: 8,
     marginVertical: 10,

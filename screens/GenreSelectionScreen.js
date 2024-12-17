@@ -1,37 +1,48 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, ActivityIndicator, Alert, Switch } from "react-native";
-import  GenreSelectionStyles from "../styles/GenreSelectionStyles";
-
-const BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OWEyZGIwMzdkY2IzMmE0Y2E4MDMyMzI1OGNkNmY3YiIsIm5iZiI6MTczMjY0NDMwMy4xMjA4NzMyLCJzdWIiOiI2NzNjYjI5MjRkNmRiMDBkOTNkNGRhYmIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.S7iq-o-yE2c1iOwEx1LEeX0HUiuT95-EITGH7NQArg0";
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import GenreSelectionStyles from "../styles/GenreSelectionStyles";
 
 const GenreSelectionScreen = ({ route, navigation }) => {
   const { category } = route.params;
   const [genres, setGenres] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [includeAdult, setIncludeAdult] = useState(false); // Ensuring initial state is a boolean
 
   useEffect(() => {
     const fetchGenres = async () => {
       try {
-        const url =
-          category === "Movies"
-            ? "https://api.themoviedb.org/3/genre/movie/list?language=en"
-            : "https://api.themoviedb.org/3/genre/tv/list?language=en";
-
-        const response = await fetch(url, {
-          headers: {
-            accept: "application/json",
-            Authorization: `Bearer ${BEARER_TOKEN}`,
-          },
-        });
-
-        const data = await response.json();
-        if (data.genres) {
-          setGenres(data.genres);
+        let fetchedGenres = [];
+        if (category === "Books") {
+          // Predefined book genres (No need to fetch from an API)
+          fetchedGenres = [
+            { id: "fiction", name: "Fiction" },
+            { id: "nonfiction", name: "Nonfiction" },
+            { id: "fantasy", name: "Fantasy" },
+            { id: "romance", name: "Romance" },
+            { id: "thriller", name: "Thriller" },
+            { id: "mystery", name: "Mystery" },
+            { id: "science", name: "Science" },
+            { id: "history", name: "History" },
+          ];
         } else {
-          Alert.alert("Error", "Failed to load genres.");
+          // Fetch genres from API for Movies or TV Shows
+          const url =
+            category === "Movies"
+              ? "https://api.themoviedb.org/3/genre/movie/list?language=en"
+              : "https://api.themoviedb.org/3/genre/tv/list?language=en";
+
+          const response = await fetch(url, {
+            headers: {
+              accept: "application/json",
+              Authorization: `Bearer ${BEARER_TOKEN}`,
+            },
+          });
+
+          const data = await response.json();
+          fetchedGenres = data.genres || [];
         }
+        setGenres(fetchedGenres);
       } catch (error) {
         Alert.alert("Error", "An error occurred while fetching genres.");
       } finally {
@@ -55,7 +66,7 @@ const GenreSelectionScreen = ({ route, navigation }) => {
       Alert.alert("Error", "Please select at least one genre.");
       return;
     }
-    navigation.navigate("Recommendations", { category, selectedGenres, includeAdult });
+    navigation.navigate("Recommendations", { category, selectedGenres });
   };
 
   return (
@@ -86,18 +97,6 @@ const GenreSelectionScreen = ({ route, navigation }) => {
           ))}
         </View>
       )}
-      <View style={GenreSelectionStyles.switchContainer}>
-        <Text style={GenreSelectionStyles.switchLabel}>Include Adult Content</Text>
-        <Switch
-          value={includeAdult} // This should always be a boolean
-          onValueChange={(value) => {
-            console.log("Toggled to:", value); // Debugging: Log the toggle value
-            setIncludeAdult(value); // Ensuring only true/false is set
-          }}
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={includeAdult ? "#f5dd4b" : "#f4f3f4"}
-        />
-      </View>
       <TouchableOpacity style={GenreSelectionStyles.searchButton} onPress={handleSearch}>
         <Text style={GenreSelectionStyles.searchButtonText}>Get Recommendations</Text>
       </TouchableOpacity>
@@ -106,5 +105,3 @@ const GenreSelectionScreen = ({ route, navigation }) => {
 };
 
 export default GenreSelectionScreen;
-
-

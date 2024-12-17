@@ -54,8 +54,8 @@ const RecommendationStyles = StyleSheet.create({
   pageButton: {
     width: 40,
     height: 40,
-    borderRadius: 75,
-    backgroundColor: "#121212",
+    borderRadius: 45,
+    backgroundColor: "#d44f02",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -63,8 +63,8 @@ const RecommendationStyles = StyleSheet.create({
     backgroundColor: "#555",
   },
   buttonImage: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     resizeMode: "contain",
   },
   pageIndicator: {

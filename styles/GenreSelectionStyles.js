@@ -26,7 +26,7 @@ const GenreSelectionStyles = StyleSheet.create({
     borderColor: "#fff",
   },
   genreButtonSelected: {
-    backgroundColor: "#6200ea",
+    backgroundColor: "#d44f02",
   },
   genreText: {
     color: "#fff",
@@ -45,7 +45,7 @@ const GenreSelectionStyles = StyleSheet.create({
     fontSize: 16,
   },
   searchButton: {
-    backgroundColor: "#03dac5",
+    backgroundColor: "#d44f02",
     padding: 15,
     borderRadius: 8,
     alignItems: "center",
